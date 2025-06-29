@@ -295,10 +295,11 @@ const Roadmaps = () => {
             transition={{ duration: 0.5 }}
             className="text-center pt-12"
           >
-            <BubbleText
-              text="Learn to Code with Our Roadmaps"
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-cyan-300 mb-6"
-            />
+           <BubbleText
+  text="Learn to Code with Our Roadmaps"
+  className="text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-cyan-300 mb-6 leading-snug break-words max-w-xs sm:max-w-lg mx-auto"
+/>
+
             <BubbleText
               text=""
               className="text-gray-400 text-sm sm:text-down md:text-lg max-w-2xl mx-auto"

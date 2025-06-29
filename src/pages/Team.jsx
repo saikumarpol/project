@@ -65,10 +65,13 @@ const TeamPage = () => {
           text="Contact us"
           className="text-cyan-400 font-semibold text-sm uppercase mb-2 block"
         />
-        <BubbleText
-          text="Need help? We’re here for you 24/7."
-          className="text-4xl md:text-5xl font-bold text-white mb-4 block"
-        />
+    <BubbleText
+  text="Need help? We’re here for you 24/7."
+  className="text-center text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 leading-snug break-words max-w-xs sm:max-w-md mx-auto"
+/>
+
+
+
         <BubbleText
           text="Our dedicated team of growth experts is ready to help around the clock. Access 24/7 support through our award-winning network."
           className="text-gray-400 max-w-xl mx-auto block"

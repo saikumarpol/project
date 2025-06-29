@@ -1,0 +1,271 @@
+import React, { useState } from 'react';
+
+// ✅ All 30 Python Questions
+const questions = [
+  {
+    id: 1,
+    question: "What will be the output of the following code?\n\nx = [1, 2, 3]\nprint(x[1])",
+    options: ["1", "2", "3", "Error"],
+    correctAnswer: "2",
+  },
+  {
+    id: 2,
+    question: "Which of the following is used to define a function in Python?",
+    options: ["function", "def", "fun", "define"],
+    correctAnswer: "def",
+  },
+  {
+    id: 3,
+    question: "What is the output of print(2 ** 3 ** 2)?",
+    options: ["64", "512", "256", "None"],
+    correctAnswer: "512",
+  },
+  {
+    id: 4,
+    question: "What is the data type of: print(type({}))?",
+    options: ["dict", "list", "set", "None"],
+    correctAnswer: "dict",
+  },
+  {
+    id: 5,
+    question: "Which keyword is used for exception handling?",
+    options: ["try", "catch", "except", "finally"],
+    correctAnswer: "except",
+  },
+  {
+    id: 6,
+    question: "What does the 'len()' function do?",
+    options: ["Returns length", "Returns data type", "Adds items", "None"],
+    correctAnswer: "Returns length",
+  },
+  {
+    id: 7,
+    question: "What will this code print?\n\nx = [1, 2, 3]\nprint(x[-1])",
+    options: ["1", "2", "3", "Error"],
+    correctAnswer: "3",
+  },
+  {
+    id: 8,
+    question: "What is the correct way to install a package in Python?",
+    options: ["install pkg", "python install", "pip install pkg", "setup pkg"],
+    correctAnswer: "pip install pkg",
+  },
+  {
+    id: 9,
+    question: "How to start a comment in Python?",
+    options: ["//", "#", "--", "/* */"],
+    correctAnswer: "#",
+  },
+  {
+    id: 10,
+    question: "Which loop is used when the number of iterations is unknown?",
+    options: ["for", "while", "do-while", "loop"],
+    correctAnswer: "while",
+  },
+  // 👉 Add more questions up to 30 here following the same format
+  {
+    id: 11,
+    question: "What is the output?\n\nprint(bool('False'))",
+    options: ["False", "True", "Error", "None"],
+    correctAnswer: "True",
+  },
+  {
+    id: 12,
+    question: "Which operator is used for floor division?",
+    options: ["/", "//", "%", "**"],
+    correctAnswer: "//",
+  },
+  {
+    id: 13,
+    question: "What is the result of: '5' + '5'?",
+    options: ["10", "55", "Error", "None"],
+    correctAnswer: "55",
+  },
+  {
+    id: 14,
+    question: "Which method adds item at end of a list?",
+    options: ["append()", "add()", "insert()", "extend()"],
+    correctAnswer: "append()",
+  },
+  {
+    id: 15,
+    question: "What is the output of: print(type(lambda x: x))?",
+    options: ["function", "lambda", "method", "None"],
+    correctAnswer: "function",
+  },
+  {
+    id: 16,
+    question: "Python is:",
+    options: ["Compiled", "Interpreted", "Both", "None"],
+    correctAnswer: "Interpreted",
+  },
+  {
+    id: 17,
+    question: "What is the output of: print(10 // 3)?",
+    options: ["3.3", "3", "3.0", "Error"],
+    correctAnswer: "3",
+  },
+  {
+    id: 18,
+    question: "Which is a valid variable name?",
+    options: ["2name", "_name", "name!", "None"],
+    correctAnswer: "_name",
+  },
+  {
+    id: 19,
+    question: "How do you start a function in Python?",
+    options: ["func name():", "def name():", "function name():", "None"],
+    correctAnswer: "def name():",
+  },
+  {
+    id: 20,
+    question: "Which module handles random numbers?",
+    options: ["math", "random", "numbers", "os"],
+    correctAnswer: "random",
+  },
+  {
+    id: 21,
+    question: "Which one is immutable?",
+    options: ["list", "dict", "set", "tuple"],
+    correctAnswer: "tuple",
+  },
+  {
+    id: 22,
+    question: "What is the keyword to create a class?",
+    options: ["def", "func", "class", "struct"],
+    correctAnswer: "class",
+  },
+  {
+    id: 23,
+    question: "What will this return?\n\nlist('abc')",
+    options: ["['abc']", "['a','b','c']", "['a,b,c']", "Error"],
+    correctAnswer: "['a','b','c']",
+  },
+  {
+    id: 24,
+    question: "How to import module?",
+    options: ["use()", "require()", "import", "include"],
+    correctAnswer: "import",
+  },
+  {
+    id: 25,
+    question: "Which operator is used for power?",
+    options: ["^", "**", "//", "%%"],
+    correctAnswer: "**",
+  },
+  {
+    id: 26,
+    question: "Which function returns max value?",
+    options: ["highest()", "max()", "top()", "maximum()"],
+    correctAnswer: "max()",
+  },
+  {
+    id: 27,
+    question: "Which of these is not a keyword?",
+    options: ["lambda", "try", "eval", "pass"],
+    correctAnswer: "eval",
+  },
+  {
+    id: 28,
+    question: "Which is used to take input?",
+    options: ["scanf()", "cin", "input()", "read()"],
+    correctAnswer: "input()",
+  },
+  {
+    id: 29,
+    question: "What is the extension of Python file?",
+    options: [".py", ".pt", ".pyt", ".python"],
+    correctAnswer: ".py",
+  },
+  {
+    id: 30,
+    question: "Which method is used to remove an item from a list?",
+    options: ["delete()", "remove()", "discard()", "None"],
+    correctAnswer: "remove()",
+  },
+];
+
+const PythonQuizApp = () => {
+  const [currentQ, setCurrentQ] = useState(0);
+  const [score, setScore] = useState(0);
+  const [answers, setAnswers] = useState([]);
+  const [showResult, setShowResult] = useState(false);
+
+  const handleAnswer = (option) => {
+    const question = questions[currentQ];
+    const isCorrect = option === question.correctAnswer;
+    if (isCorrect) setScore(score + 1);
+
+    setAnswers([
+      ...answers,
+      {
+        question: question.question,
+        selected: option,
+        correct: question.correctAnswer,
+        isCorrect,
+      },
+    ]);
+
+    if (currentQ + 1 < questions.length) {
+      setCurrentQ(currentQ + 1);
+    } else {
+      setShowResult(true);
+    }
+  };
+
+  const restartQuiz = () => {
+    setCurrentQ(0);
+    setScore(0);
+    setAnswers([]);
+    setShowResult(false);
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto p-6 text-white bg-gray-900 min-h-screen">
+      <h1 className="text-3xl font-bold mb-6">🐍 Python Quiz</h1>
+
+      {!showResult ? (
+        <div className="bg-gray-800 p-5 rounded-lg shadow-lg">
+          <p className="text-lg mb-3">
+            Question {currentQ + 1} of {questions.length}
+          </p>
+          <pre className="mb-4 whitespace-pre-wrap text-base">{questions[currentQ].question}</pre>
+          <div className="space-y-3">
+            {questions[currentQ].options.map((option, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleAnswer(option)}
+                className="w-full py-2 px-4 bg-blue-600 rounded hover:bg-blue-700"
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold mb-4">🎉 Quiz Completed!</h2>
+          <p className="text-xl mb-4">Your Score: {score} / {questions.length}</p>
+          <ul className="space-y-3 text-sm">
+            {answers.map((ans, idx) => (
+              <li key={idx} className="bg-gray-700 p-3 rounded">
+                <strong>Q{idx + 1}:</strong> {ans.question} <br />
+                <span className={ans.isCorrect ? "text-green-400" : "text-red-400"}>
+                  Your Answer: {ans.selected}
+                </span> | Correct: {ans.correct}
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={restartQuiz}
+            className="mt-6 py-2 px-6 bg-green-600 hover:bg-green-700 rounded"
+          >
+            Restart Quiz
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default PythonQuizApp;
